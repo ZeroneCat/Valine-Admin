@@ -1,12 +1,21 @@
 'use strict';
 const nodemailer = require('nodemailer');
 
+if (process.env.SMTP_TYPE == "OAuth2") {
+    let config = {
+        auth: {
+            type: process.env.SMTP_TYPE,
+            user: process.env.SMTP_USER,
+            accessToken: process.env.SMTP_PASS
+        }
+    }
+} else {
 let config = {
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
     }
-}
+}}
 
 if (process.env.SMTP_SERVICE != null) {
     config.service = process.env.SMTP_SERVICE;
